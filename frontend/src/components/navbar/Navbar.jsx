@@ -9,7 +9,15 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import {Link} from 'react-router-dom'
+import { useContext } from 'react';
+import { DarkModeContext } from '../../context/darkModeContext';
+import { AuthContext } from '../../context/authContext';
 function Navbar(){
+
+    const {toggle, darkMode} = useContext(DarkModeContext)
+    const {currentUser} = useContext(AuthContext)
+    
+
     return(
         <div className="navbar">
             <div className="left">
@@ -17,7 +25,7 @@ function Navbar(){
                 <span>lamasocial</span>
                 </Link>
                 <HomeOutlinedIcon/>
-                <DarkModeOutlinedIcon/>
+                {darkMode ? (<DarkModeOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>) : (<WbSunnyOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>)}
                 <GridViewOutlinedIcon/>
                 <div className='search'>
                     <SearchOutlinedIcon/>
@@ -29,8 +37,8 @@ function Navbar(){
                 <MailOutlinedIcon/>
                 <NotificationsOffOutlinedIcon/>
                 <div className="user">
-                    <img src="https://images.pexels.com/photos/7550294/pexels-photo-7550294.jpeg"/>
-                    <span>John doe</span>
+                    <img src={currentUser.profilePic}/>
+                    <span>{currentUser.name}</span>
                 </div>
             </div>
         </div>
