@@ -25,7 +25,7 @@ function Navbar(){
                 <span>lamasocial</span>
                 </Link>
                 <HomeOutlinedIcon/>
-                {darkMode ? (<DarkModeOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>) : (<WbSunnyOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>)}
+                {!darkMode ? (<DarkModeOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>) : (<WbSunnyOutlinedIcon onClick={toggle} style={{cursor: 'pointer'}}/>)}
                 <GridViewOutlinedIcon/>
                 <div className='search'>
                     <SearchOutlinedIcon/>
