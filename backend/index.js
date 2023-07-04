@@ -1,0 +1,15 @@
+const express = require('express')
+const app = express()
+const userRoutes = require('./routes/auth')
+const postRoutes = require('./routes/users')
+const authRoutes = require('./routes/posts')
+const commentRoutes = require('./routes/comments')
+const likeRoutes = require('./routes/likes')
+
+app.use("/api/users", userRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/posts", postRoutes)
+app.use("/api/comments", commentRoutes)
+app.use("/api/likes", likeRoutes)
+
+app.listen(8800, ()=>console.log('API working'))
