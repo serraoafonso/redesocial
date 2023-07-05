@@ -1,10 +1,18 @@
 const express = require('express')
 const app = express()
-const userRoutes = require('./routes/auth')
-const postRoutes = require('./routes/users')
-const authRoutes = require('./routes/posts')
+const authRoutes = require('./routes/auth.js')
+const userRoutes = require('./routes/users')
+const postRoutes = require('./routes/posts')
 const commentRoutes = require('./routes/comments')
 const likeRoutes = require('./routes/likes')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+
+
+app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
+
 
 app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
