@@ -1,8 +1,8 @@
 const express = require('express')
-const getUser = require('../controllers/post')
+const {getPosts} = require('../controllers/post')
 
 const router = express.Router()
 
-router.get("",) 
+router.get("/",getPosts) 
 
 module.exports = router
