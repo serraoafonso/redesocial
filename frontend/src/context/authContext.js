@@ -15,6 +15,7 @@ const login = async(inputs)=>{
 }
 
 useEffect(()=>{
+    
     localStorage.setItem("user", JSON.stringify(currentUser))
 }, [currentUser])
 

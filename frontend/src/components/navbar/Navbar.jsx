@@ -12,6 +12,7 @@ import {Link} from 'react-router-dom'
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/darkModeContext';
 import { AuthContext } from '../../context/authContext';
+import profile from '../../assets/user.png'
 function Navbar(){
 
     const {toggle, darkMode} = useContext(DarkModeContext)
@@ -37,7 +38,7 @@ function Navbar(){
                 <MailOutlinedIcon/>
                 <NotificationsOffOutlinedIcon/>
                 <div className="user">
-                    <img src={currentUser.profilePic}/>
+                    <img src={currentUser.profilePic == null ? currentUser.profilePic : profile}/>
                     <span>{currentUser.name}</span>
                 </div>
             </div>
