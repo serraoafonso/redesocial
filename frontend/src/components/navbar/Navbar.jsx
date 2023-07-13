@@ -38,7 +38,7 @@ function Navbar(){
                 <MailOutlinedIcon/>
                 <NotificationsOffOutlinedIcon/>
                 <div className="user">
-                    <img src={currentUser.profilePic == null ? currentUser.profilePic : profile}/>
+                    <img src={currentUser.profilePic == null ? profile : currentUser.profilePic}/>
                     <span>{currentUser.name}</span>
                 </div>
             </div>

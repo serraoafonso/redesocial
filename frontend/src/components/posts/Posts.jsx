@@ -22,7 +22,7 @@ export default function Posts(){
         <div className="posts">
           { error ? "Something went wrong" : isLoading ? "loading" : data.map(post=>{
             return(
-          <Post post={post} key = {post.id}/>
+          <Post post={post}  key={post.id}/>
             )
        })}
         </div>

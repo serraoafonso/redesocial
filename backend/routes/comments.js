@@ -1,8 +1,9 @@
 const express = require('express')
-const getUser = require('../controllers/comment')
+const {getComments, addComment} = require('../controllers/comment')
 
 const router = express.Router()
 
-router.get("",) 
+router.get("/", getComments) 
+router.post("/", addComment) 
 
 module.exports = router

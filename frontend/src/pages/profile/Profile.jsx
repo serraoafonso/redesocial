@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './profile.scss'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
@@ -10,13 +10,40 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import Posts from '../../components/posts/Posts';
+import {
+    useMutation,
+    useQueryClient,
+    useQuery
+  } from '@tanstack/react-query'
+
+  import { makeRequest } from '../../axios';
+import { useLocation } from 'react-router-dom';
+import { AuthContext } from '../../context/authContext';
 
 function Profile(){
+
+const {currentUser} = useContext(AuthContext)
+
+const userId = useLocation().pathname.split('/')[2]
+
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['users'],
+        queryFn: () =>
+          makeRequest.get("/users/find/"+userId).then(
+            (res) => {
+              return res.data
+            }
+          )
+        })
+        console.log(data)
+
+
     return(
         <div className="profile">
+            {isLoading ? "Loading..." : <>
           <div className="images">
-            <img src="https://images.pexels.com/photos/7550294/pexels-photo-7550294.jpeg" alt="" className='cover'/>
-            <img src="https://images.pexels.com/photos/7550294/pexels-photo-7550294.jpeg" alt="" className='profilePic'/>
+            <img src={data?.coverPic} alt="" className='cover'/>
+            <img src={data?.profilePic} alt="" className='profilePic'/>
           </div>
           <div className="profileContainer">
             <div className="uInfo">
@@ -38,19 +65,19 @@ function Profile(){
                 </a>
                 </div>
                 <div className="center">
-                <span>Hane Doe</span>
+                <span>{data?.name}</span>
                 <div className="info">
                     <div className="item">
                         <PlaceIcon/>
-                        <span>USA</span>
+                        <span>{data?.city}</span>
                     </div>
                     <div className="item">
                         <LanguageOutlinedIcon/>
-                        <span>lama.dev</span>
+                        <span>{data?.website}</span>
                     </div>
                     
                 </div>
-                <button>Follow</button>
+                {userId == currentUser.id ? (<button>Update</button>) :  (<button>Follow</button>)}
                 </div>
                 <div className="right">
                  <EmailOutlinedIcon/>
@@ -59,6 +86,8 @@ function Profile(){
             </div>
             <Posts/>
           </div>
+          </>
+}
         </div>
     )
 }
