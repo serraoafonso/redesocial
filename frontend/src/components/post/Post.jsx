@@ -19,6 +19,8 @@ import {
 export default function Post({post}){
 
     const [commentOpen, setCommentOpen] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
+
     const {currentUser} = useContext(AuthContext)
 
     
@@ -52,6 +54,21 @@ export default function Post({post}){
     mutation.mutate(data.includes(currentUser.id))
   }
 
+
+  const deleteMutation = useMutation({
+    mutationFn: (postId)=>{
+      return makeRequest.delete("/posts/"+postId);
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['posts'] })
+    },
+  })
+
+  const handleDelete = ()=>{
+    deleteMutation.mutate(post.id)
+  }
+
     return(
         <div className="post">
             <div className="container">
@@ -65,7 +82,8 @@ export default function Post({post}){
                         <span className='date'>{moment(post.createdAt).fromNow()}</span>
                      </div>
                 </div>       
-                <MoreHorizOutlinedIcon/>
+                <MoreHorizOutlinedIcon onClick={()=>setMenuOpen(!menuOpen)}/>
+                {(menuOpen && post.userId == currentUser.id) && <button onClick={handleDelete}>delete</button>}
             </div>
             <div className="content">
               <p>{post.desc}</p>
